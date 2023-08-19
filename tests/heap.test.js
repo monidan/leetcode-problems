@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-const { Heap } = require('../algorithms/heaps');
+const { Heap } = require('../data-structures/heaps');
 
 function initializeHeapWithItems(array) {
     const heap = new Heap({ type: 'max' });
