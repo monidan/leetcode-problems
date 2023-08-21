@@ -9,7 +9,7 @@
  */
 
 exports.addNode = function addNode(tree, value) {
-    if (!tree.value) return console.error('No value for a source tree node.');
+    if (!tree || !tree.value) return;
     
     const node = {
         value,
@@ -31,29 +31,33 @@ exports.addNode = function addNode(tree, value) {
 }
 
 exports.binarySearch = function binarySearch(tree, searchedValue) {
+    if (!tree) return null;
     if (searchedValue === tree.value) return tree;
 
     if (searchedValue > tree.value && tree.right) return binarySearch(tree.right, searchedValue);
     if (searchedValue < tree.value && tree.left) return binarySearch(tree.left, searchedValue);
 
-    return console.log('No value like that in the tree');
+    return null;
 }
 
-exports.inorderTraversal = function inorderTraversal(tree) {
-    if (tree) {
-        inorderTraversal(tree.left);
-        console.log(tree.value);
-        inorderTraversal(tree.right);
-    }
+exports.inorderTraversal = function inorderTraversal(tree, callback) {
+    if (!callback || !tree) return;
+
+    inorderTraversal(tree.left, callback);
+    callback(tree);
+    inorderTraversal(tree.right, callback);
 }
 
-exports.preorderTraversal = function preorderTraversal(tree) {
-    
+exports.preorderTraversal = function preorderTraversal(tree, callback) {
+    if (!tree || !callback) return;
+
+    callback(tree)
+    preorderTraversal(tree.left, callback);
+    preorderTraversal(tree.right, callback);
 }
 
 exports.deleteNode = function deleteNode(tree, deletedValueForNode) {
     if (!tree) {
-        console.log('No leaves for this value');
         return null;
     };
  
